@@ -48,17 +48,17 @@ public class Letter {
 		if (Arrays.asList(onePoint).contains(this.tile)) {
 			this.value = 1;
 		} else if (Arrays.asList(twoPoints).contains(this.tile)) {
-			this.value = 1;
+			this.value = 2;
 		} else if (Arrays.asList(threePoints).contains(this.tile)) {
-			this.value = 1;
+			this.value = 3;
 		} else if (Arrays.asList(fourPoints).contains(this.tile)) {
-			this.value = 1;
+			this.value = 4;
 		} else if (Arrays.asList(fivePoints).contains(this.tile)) {
-			this.value = 1;
+			this.value = 5;
 		} else if (Arrays.asList(eightPoints).contains(this.tile)) {
-			this.value = 1;
+			this.value = 8;
 		} else if (Arrays.asList(tenPoints).contains(this.tile)) {
-			this.value = 1;
+			this.value = 10;
 		} else {
 			this.value = 0;
 			// Needs to throw exception
