@@ -85,4 +85,8 @@ public class Word {
 		this.letter = new Letter(letter);
 		return this.letter.getTileValue();
 	}
+	
+	public String getWord() {
+		return this.word;
+	}
 }
