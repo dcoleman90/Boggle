@@ -2,12 +2,16 @@ package edu.westga.cs6241.babble.testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.Rule;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 
 import edu.westga.cs6241.babble.model.Letter;
 
 class TestLetterConstructorAndSetTileValue {
 
+	
 	/**
 	 * This test will set the letter to A and test the returned numerical value 
 	 * should return 1
@@ -97,4 +101,35 @@ class TestLetterConstructorAndSetTileValue {
 		Letter testLetter = new Letter("X");
 		assertEquals(8, testLetter.getTileValue());
 	}
+
+	/**
+	 * This test will check for a incorrect character value and should return an error message
+	 */
+	@Test
+	void testThrowsIllegalArguementNullValue() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			Letter testLetter = new Letter("");
+		});
+	}
+	
+	/**
+	 * This test will check for a incorrect character value and should return an error message
+	 */
+	@Test
+	void testThrowsIllegalArguementWrongValue() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			Letter testLetter = new Letter("5");
+		});
+	}
+	
+	/**
+	 * This test will check for a incorrect character value and should return an error message
+	 */
+	@Test
+	void testThrowsIllegalArguementTooLongValue() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			Letter testLetter = new Letter("Hey");
+		});
+	}
 }
+
