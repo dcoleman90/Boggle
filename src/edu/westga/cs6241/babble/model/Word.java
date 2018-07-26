@@ -44,4 +44,9 @@ public class Word {
 		}
 		return false;	
 	}
+	
+	public int getWordValue() {
+		return 0;
+		
+	}
 }
