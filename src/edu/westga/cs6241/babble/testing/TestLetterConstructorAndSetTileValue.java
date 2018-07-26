@@ -2,10 +2,8 @@ package edu.westga.cs6241.babble.testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import edu.westga.cs6241.babble.model.Letter;
 
@@ -104,31 +102,37 @@ class TestLetterConstructorAndSetTileValue {
 
 	/**
 	 * This test will check for a incorrect character value and should return an error message
+	 * final line in test testLetter.getTileValue() used to remove checkstyle error
 	 */
 	@Test
 	void testThrowsIllegalArguementNullValue() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			Letter testLetter = new Letter("");
+			testLetter.getTileValue();
 		});
 	}
 	
 	/**
 	 * This test will check for a incorrect character value and should return an error message
+	 * final line in test testLetter.getTileValue() used to remove checkstyle error
 	 */
 	@Test
 	void testThrowsIllegalArguementWrongValue() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			Letter testLetter = new Letter("5");
+			testLetter.getTileValue();
 		});
 	}
 	
 	/**
 	 * This test will check for a incorrect character value and should return an error message
+	 * final line in test testLetter.getTileValue() used to remove checkstyle error
 	 */
 	@Test
 	void testThrowsIllegalArguementTooLongValue() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			Letter testLetter = new Letter("Hey");
+			testLetter.getTileValue();
 		});
 	}
 }

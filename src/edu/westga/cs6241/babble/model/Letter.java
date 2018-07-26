@@ -27,7 +27,7 @@ public class Letter {
 		String[] alphabet = { "e", "a", "i", "o", "n", "r", "t", "l", "s", "u", "d", "g", "b", "c", "m", "p", "f", "h",
 				"v", "w", "y", "k", "j", "x", "q", "z" };
 		if (tile == null) {
-			throw new NullPointerException("Invalid Strategy");
+			throw new NullPointerException("Letter cannot be null");
 		}
 		if (tile.length() > 1) {
 			throw new IllegalArgumentException("Letter is only to be one character long");
