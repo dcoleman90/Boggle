@@ -1,9 +1,11 @@
-  package edu.westga.cs6241.babble.model;
+package edu.westga.cs6241.babble.model;
 
 import java.util.Arrays;
 
 /**
- * The Letter class returns the value of an accepted String. It will only accept an a-z character   
+ * The Letter class returns the value of an accepted String. It will only accept
+ * an a-z character
+ * 
  * @author Drew Coleman
  *
  */
@@ -22,16 +24,17 @@ public class Letter {
 	 *            sets this.value to the point value of the tile
 	 */
 	public Letter(String tile) {
-		String[] alphabet =  { "e", "a", "i", "o", "n", "r", "t", "l", "s", "u", "d", "g", "b", "c", "m", "p", "f", "h", "v", "w", "y", "k", "j", "x", "q", "z" };
+		String[] alphabet = { "e", "a", "i", "o", "n", "r", "t", "l", "s", "u", "d", "g", "b", "c", "m", "p", "f", "h",
+				"v", "w", "y", "k", "j", "x", "q", "z" };
 		if (tile == null) {
-			// illegal throw
+			throw new NullPointerException("Invalid Strategy");
 		}
 		if (tile.length() > 1) {
-			// illegal throw exception
+			throw new IllegalArgumentException("Letter is only to be one character long");
 		}
 		String lowerCaseTile = tile.toLowerCase();
 		if (!Arrays.asList(alphabet).contains(lowerCaseTile)) {
-		 //illegal throw	
+			throw new IllegalArgumentException("Only charactors a-z and A-Z are allowed");
 		}
 		this.tile = lowerCaseTile;
 		this.setTileValue();
@@ -61,8 +64,7 @@ public class Letter {
 		} else if (Arrays.asList(tenPoints).contains(this.tile)) {
 			this.value = 10;
 		} else {
-			this.value = 0;
-			// Needs to throw exception
+			throw new IllegalArgumentException("Charactor not found within Alphabet");
 		}
 
 	}

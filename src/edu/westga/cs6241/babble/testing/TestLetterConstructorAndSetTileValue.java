@@ -1,16 +1,12 @@
 package edu.westga.cs6241.babble.testing;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6241.babble.model.Letter;
 
-/**
- * @author Drew Coleman
- *
- */
-class TestLetterSetTileValue {
+class TestLetterConstructorAndSetTileValue {
 
 	/**
 	 * This test will set the letter to A and test the returned numerical value 
