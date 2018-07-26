@@ -1,4 +1,4 @@
-package edu.westga.cs6241.babble.model;
+  package edu.westga.cs6241.babble.model;
 
 import java.util.Arrays;
 
@@ -29,10 +29,11 @@ public class Letter {
 		if (tile.length() > 1) {
 			// illegal throw exception
 		}
-		if (!Arrays.asList(alphabet).contains(tile)) {
+		String lowerCaseTile = tile.toLowerCase();
+		if (!Arrays.asList(alphabet).contains(lowerCaseTile)) {
 		 //illegal throw	
 		}
-		this.tile = tile;
+		this.tile = lowerCaseTile;
 		this.setTileValue();
 	}
 

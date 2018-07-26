@@ -81,4 +81,24 @@ class TestLetterSetTileValue {
 		Letter testLetter = new Letter("z");
 		assertEquals(10, testLetter.getTileValue());
 	}
+	
+	/**
+	 * This test will check for a capital letter and return the numerical value
+	 * should return 1
+	 */
+	@Test
+	void testSetTileValueCapLetterAShouldReturn1() {
+		Letter testLetter = new Letter("A");
+		assertEquals(1, testLetter.getTileValue());
+	}
+	
+	/**
+	 * This test will check for a capital letter and return the numerical value
+	 * should return 1
+	 */
+	@Test
+	void testSetTileValueCapLetterXShouldReturn() {
+		Letter testLetter = new Letter("X");
+		assertEquals(8, testLetter.getTileValue());
+	}
 }
