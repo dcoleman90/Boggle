@@ -27,7 +27,7 @@ public class RandomLetter {
 	}
 
 	public String getRandomLetter() {
-		int selection = this.random.nextInt(96);
+		int selection = this.random.nextInt(98);
 		String letter = this.alphabet.get(selection);
 		return letter;
 	}
@@ -39,7 +39,7 @@ public class RandomLetter {
 	}
 
 	private void setAI9() {
-		for (int count = 0; count < 12; count++) {
+		for (int count = 0; count < 9; count++) {
 			this.alphabet.add("a");
 			this.alphabet.add("i");
 		}
@@ -98,6 +98,3 @@ public class RandomLetter {
 		}
 	}
 }
-
-// TODO Letters are not to be distrubuited in equal number - rather by scrabble
-// rules thus more e than z
