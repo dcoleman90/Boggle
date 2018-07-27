@@ -18,6 +18,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -71,6 +72,7 @@ public class BabbleGUI extends GridPane {
 		this.randomLetters.setItems(this.listOfLetters);
 		this.randomLetters.setOrientation(Orientation.HORIZONTAL);
 		this.randomLetters.setMaxHeight(30);
+		this.randomLetters.setTooltip(new Tooltip("This area contains the tiles available to be used to make words"));
 		this.randomLetters.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -84,7 +86,7 @@ public class BabbleGUI extends GridPane {
 		});
 		this.userSelectedWord.setOrientation(Orientation.HORIZONTAL);
 		this.userSelectedWord.setMaxHeight(30);
-
+		this.userSelectedWord.setTooltip(new Tooltip("This area contains the tiles you have selected to make your word"));
 		this.add(this.randomLetters, 1, 2, 2, 1);
 		this.add(this.userSelectedWord, 1, 4, 2, 4);
 	}
@@ -170,9 +172,30 @@ public class BabbleGUI extends GridPane {
 		Label score = new Label("Score");
 		TextField scoreBox = new TextField();
 		scoreBox.setText("" + this.score);
-		
+		scoreBox.setTooltip(new Tooltip("Your current Score"));
+		scoreBox.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+	        public void handle(ActionEvent event) {
+	            if(BabbleGUI.this.IsValueInt(scoreBox.getText())){
+					BabbleGUI.this.score = Integer.parseInt(scoreBox.getText());
+				} else {
+					BabbleGUI.this.score = 0;
+				}
+	        }
+	    });
 		scoreLine.getChildren().addAll(score, scoreBox);
 		scoreLine.setSpacing(10);
 		this.add(scoreLine, 2, 9);
+	}
+	
+	public boolean IsValueInt(String scoreBoxInput) {
+		boolean isValid = false;
+			try {
+				Integer.parseInt(scoreBoxInput);
+				isValid = true;
+			} catch (NumberFormatException nfe) {
+				isValid = false;
+			}
+		return isValid;
 	}
 }
