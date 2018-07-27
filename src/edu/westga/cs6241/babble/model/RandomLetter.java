@@ -22,3 +22,5 @@ public class RandomLetter {
 		return letter;
 	}
 }
+
+//TODO Letters are not to be distrubuited in equal number - rather by scrabble rules thus more e than z
