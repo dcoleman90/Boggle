@@ -29,7 +29,7 @@ public class RandomLetter {
 	public String getRandomLetter() {
 		int selection = this.random.nextInt(98);
 		String letter = this.alphabet.get(selection);
-		return letter;
+		return letter.toUpperCase();
 	}
 
 	private void setE12() {
