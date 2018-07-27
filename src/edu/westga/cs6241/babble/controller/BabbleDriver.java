@@ -18,7 +18,7 @@ public class BabbleDriver extends Application {
 		BabbleGUI babble = new BabbleGUI();
 		BorderPane pane = new BorderPane();
 		pane.setCenter(babble);
-		Scene display = new Scene(pane, 300, 300);
+		Scene display = new Scene(pane, 300, 250);
 		primaryStage.setTitle("Babble");
 		primaryStage.setScene(display);
 		primaryStage.show();

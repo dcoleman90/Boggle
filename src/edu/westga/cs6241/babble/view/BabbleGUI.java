@@ -17,6 +17,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -25,7 +26,7 @@ public class BabbleGUI extends GridPane {
 	private String word;
 	private ObservableList<String> selectedWord;
 	private ObservableList<String> listOfLetters;
-	
+
 	private ListView<String> userSelectedWord;
 	private ListView<String> randomLetters;
 	private Button btnSubmitWord;
@@ -52,9 +53,9 @@ public class BabbleGUI extends GridPane {
 
 	private void buildLabels() {
 		Label tiles = new Label("Tiles");
-		Label score = new Label("Score " + this.score);
+		Label yourWord = new Label("Your Word");
 		this.add(tiles, 1, 1);
-		this.add(score, 2, 5);
+		this.add(yourWord, 1, 3);
 	}
 
 	private void buildGaps() {
@@ -84,8 +85,8 @@ public class BabbleGUI extends GridPane {
 		this.userSelectedWord.setOrientation(Orientation.HORIZONTAL);
 		this.userSelectedWord.setMaxHeight(30);
 
-		this.add(this.randomLetters, 1, 2);
-		this.add(this.userSelectedWord, 1, 4);
+		this.add(this.randomLetters, 1, 2, 2, 1);
+		this.add(this.userSelectedWord, 1, 4, 2, 4);
 	}
 
 	private String randomLetterHelper() {
@@ -96,13 +97,8 @@ public class BabbleGUI extends GridPane {
 	public void resetGridPane() {
 		this.getChildren().clear();
 		this.word = "";
-		this.selectedWord = FXCollections.observableArrayList();
 	}
 
-	public void resetWord() {
-		
-	}
-	
 	public void resetListOfLetters(String addedLetters) {
 		String[] reset = addedLetters.split("");
 		for (int count = 0; count < reset.length; count++) {
@@ -111,13 +107,14 @@ public class BabbleGUI extends GridPane {
 	}
 
 	private void buildButtons() {
-		this.btnSubmitWord = new Button("Submit");
+		this.btnSubmitWord = new Button("Play Word");
 		this.btnSubmitWord.setOnAction(new SubmitWordListener());
 		this.btnReset = new Button("Reset");
+		this.btnReset.setOnAction(new ResetWordListener());
 		HBox buttonBox = new HBox();
-		buttonBox.getStyleClass().add("box-padding");
+		buttonBox.setSpacing(10);
 		buttonBox.getChildren().addAll(this.btnReset, this.btnSubmitWord);
-		this.add(buttonBox, 1, 5);
+		this.add(buttonBox, 2, 8);
 
 	}
 
@@ -129,11 +126,8 @@ public class BabbleGUI extends GridPane {
 			try {
 				if (testWord.isAWord()) {
 					BabbleGUI.this.score += testWord.getWordValue();
-					System.out.println("true" + testWord.getWordValue());
 					BabbleGUI.this.selectedWord = FXCollections.observableArrayList();
 					BabbleGUI.this.userSelectedWord.setItems(BabbleGUI.this.selectedWord);
-				//	BabbleGUI.this.listOfLetters = BabbleGUI.this.tempListOfLetters;
-					BabbleGUI.this.resetWord();
 					BabbleGUI.this.resetGridPane();
 					BabbleGUI.this.buildGridPane();
 				} else {
@@ -145,9 +139,10 @@ public class BabbleGUI extends GridPane {
 					ButtonType exit = new ButtonType("exit", ButtonData.CANCEL_CLOSE);
 					notAWord.getButtonTypes().setAll(exit);
 					BabbleGUI.this.resetListOfLetters(BabbleGUI.this.word);
+					BabbleGUI.this.selectedWord = FXCollections.observableArrayList();
+					BabbleGUI.this.userSelectedWord.setItems(BabbleGUI.this.selectedWord);
 					BabbleGUI.this.resetGridPane();
 					BabbleGUI.this.buildGridPane();
-					;
 				}
 			} catch (FileNotFoundException fnfe) {
 				System.out.println("<--File not found-->");
@@ -157,7 +152,27 @@ public class BabbleGUI extends GridPane {
 
 	}
 
-	private void buildScoreBox() {
+	private class ResetWordListener implements EventHandler<ActionEvent> {
 
+		@Override
+		public void handle(ActionEvent event) {
+			BabbleGUI.this.resetListOfLetters(BabbleGUI.this.word);
+			BabbleGUI.this.selectedWord = FXCollections.observableArrayList();
+			BabbleGUI.this.userSelectedWord.setItems(BabbleGUI.this.selectedWord);
+			BabbleGUI.this.resetGridPane();
+			BabbleGUI.this.buildGridPane();
+		}
+	}
+
+
+	private void buildScoreBox() {
+		HBox scoreLine = new HBox();
+		Label score = new Label("Score");
+		TextField scoreBox = new TextField();
+		scoreBox.setText("" + this.score);
+		
+		scoreLine.getChildren().addAll(score, scoreBox);
+		scoreLine.setSpacing(10);
+		this.add(scoreLine, 2, 9);
 	}
 }
