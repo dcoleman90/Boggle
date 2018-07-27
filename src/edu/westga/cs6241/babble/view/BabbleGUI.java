@@ -25,7 +25,7 @@ public class BabbleGUI extends GridPane {
 	private String word;
 	private ObservableList<String> selectedWord;
 	private ObservableList<String> listOfLetters;
-	private ObservableList<String> tempListOfLetters;
+	
 	private ListView<String> userSelectedWord;
 	private ListView<String> randomLetters;
 	private Button btnSubmitWord;
@@ -34,7 +34,6 @@ public class BabbleGUI extends GridPane {
 
 	public BabbleGUI() {
 		this.listOfLetters = FXCollections.observableArrayList();
-		this.tempListOfLetters = FXCollections.observableArrayList();
 		this.selectedWord = FXCollections.observableArrayList();
 		this.userSelectedWord = new ListView<String>();
 		this.randomLetters = new ListView<String>();
@@ -53,7 +52,9 @@ public class BabbleGUI extends GridPane {
 
 	private void buildLabels() {
 		Label tiles = new Label("Tiles");
+		Label score = new Label("Score " + this.score);
 		this.add(tiles, 1, 1);
+		this.add(score, 2, 5);
 	}
 
 	private void buildGaps() {
@@ -66,7 +67,6 @@ public class BabbleGUI extends GridPane {
 		for (int count = this.listOfLetters.size(); count < 7; count++) {
 			this.listOfLetters.add(this.randomLetterHelper());
 		}
-		this.tempListOfLetters = this.listOfLetters;
 		this.randomLetters.setItems(this.listOfLetters);
 		this.randomLetters.setOrientation(Orientation.HORIZONTAL);
 		this.randomLetters.setMaxHeight(30);
