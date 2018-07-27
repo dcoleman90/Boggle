@@ -10,7 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +25,7 @@ public class BabbleGUI extends GridPane {
 	private String word;
 	private ObservableList<String> selectedWord;
 	private ObservableList<String> listOfLetters;
+	private ObservableList<String> tempListOfLetters;
 	private ListView<String> userSelectedWord;
 	private ListView<String> randomLetters;
 	private Button btnSubmitWord;
@@ -29,6 +34,7 @@ public class BabbleGUI extends GridPane {
 
 	public BabbleGUI() {
 		this.listOfLetters = FXCollections.observableArrayList();
+		this.tempListOfLetters = FXCollections.observableArrayList();
 		this.selectedWord = FXCollections.observableArrayList();
 		this.userSelectedWord = new ListView<String>();
 		this.randomLetters = new ListView<String>();
@@ -36,7 +42,7 @@ public class BabbleGUI extends GridPane {
 		this.score = 0;
 		this.buildGridPane();
 	}
-	
+
 	public void buildGridPane() {
 		this.buildLabels();
 		this.buildGaps();
@@ -60,6 +66,7 @@ public class BabbleGUI extends GridPane {
 		for (int count = this.listOfLetters.size(); count < 7; count++) {
 			this.listOfLetters.add(this.randomLetterHelper());
 		}
+		this.tempListOfLetters = this.listOfLetters;
 		this.randomLetters.setItems(this.listOfLetters);
 		this.randomLetters.setOrientation(Orientation.HORIZONTAL);
 		this.randomLetters.setMaxHeight(30);
@@ -67,10 +74,10 @@ public class BabbleGUI extends GridPane {
 			@Override
 			public void handle(MouseEvent arg0) {
 				if (BabbleGUI.this.randomLetters.getSelectionModel().getSelectedItem() != null) {
-					BabbleGUI.this.selectedWord.add(randomLetters.getSelectionModel().getSelectedItem());
+					BabbleGUI.this.selectedWord.add(BabbleGUI.this.randomLetters.getSelectionModel().getSelectedItem());
 					BabbleGUI.this.word += BabbleGUI.this.randomLetters.getSelectionModel().getSelectedItem();
 				}
-				BabbleGUI.this.listOfLetters.remove(randomLetters.getSelectionModel().getSelectedItem());
+				BabbleGUI.this.listOfLetters.remove(BabbleGUI.this.randomLetters.getSelectionModel().getSelectedItem());
 				BabbleGUI.this.userSelectedWord.setItems(BabbleGUI.this.selectedWord);
 			}
 		});
@@ -80,18 +87,28 @@ public class BabbleGUI extends GridPane {
 		this.add(this.randomLetters, 1, 2);
 		this.add(this.userSelectedWord, 1, 4);
 	}
-	
-	public void resetGridPane() {
-		this.word = "";
-		this.selectedWord = FXCollections.observableArrayList();
-		this.getChildren().clear();
-	}
 
 	private String randomLetterHelper() {
 		RandomLetter a2z = new RandomLetter();
 		return a2z.getRandomLetter();
 	}
 
+	public void resetGridPane() {
+		this.getChildren().clear();
+		this.word = "";
+		this.selectedWord = FXCollections.observableArrayList();
+	}
+
+	public void resetWord() {
+		
+	}
+	
+	public void resetListOfLetters(String addedLetters) {
+		String[] reset = addedLetters.split("");
+		for (int count = 0; count < reset.length; count++) {
+			this.listOfLetters.add(reset[count]);
+		}
+	}
 
 	private void buildButtons() {
 		this.btnSubmitWord = new Button("Submit");
@@ -112,12 +129,25 @@ public class BabbleGUI extends GridPane {
 			try {
 				if (testWord.isAWord()) {
 					BabbleGUI.this.score += testWord.getWordValue();
-				//	BabbleGUI.this.resetLetters();
 					System.out.println("true" + testWord.getWordValue());
 					BabbleGUI.this.selectedWord = FXCollections.observableArrayList();
 					BabbleGUI.this.userSelectedWord.setItems(BabbleGUI.this.selectedWord);
+				//	BabbleGUI.this.listOfLetters = BabbleGUI.this.tempListOfLetters;
+					BabbleGUI.this.resetWord();
 					BabbleGUI.this.resetGridPane();
-					BabbleGUI.this.buildGridPane();;
+					BabbleGUI.this.buildGridPane();
+				} else {
+					Alert notAWord = new Alert(AlertType.INFORMATION);
+					notAWord.setTitle("Miss Spelled");
+					notAWord.setHeaderText("This is not an acceptable word");
+					notAWord.setContentText("Please create an acceptable word");
+					notAWord.showAndWait();
+					ButtonType exit = new ButtonType("exit", ButtonData.CANCEL_CLOSE);
+					notAWord.getButtonTypes().setAll(exit);
+					BabbleGUI.this.resetListOfLetters(BabbleGUI.this.word);
+					BabbleGUI.this.resetGridPane();
+					BabbleGUI.this.buildGridPane();
+					;
 				}
 			} catch (FileNotFoundException fnfe) {
 				System.out.println("<--File not found-->");
