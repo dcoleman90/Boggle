@@ -91,6 +91,10 @@ public class BabbleGUI extends GridPane {
 		this.add(this.userSelectedWord, 1, 4, 2, 4);
 	}
 
+	/**
+	 * this is a helper method which sets up the  random tray
+	 * @return
+	 */
 	private String randomLetterHelper() {
 		RandomLetter a2z = new RandomLetter();
 		return a2z.getRandomLetter();
